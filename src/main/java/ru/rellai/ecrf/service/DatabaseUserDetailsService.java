@@ -1,0 +1,24 @@
+package ru.rellai.ecrf.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import ru.rellai.ecrf.entity.User;
+import ru.rellai.ecrf.repository.UserRepository;
+import ru.rellai.ecrf.security.UserPrincipal;
+
+@Service
+@RequiredArgsConstructor
+public class DatabaseUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));;
+        return new UserPrincipal(user);
+    }
+}
