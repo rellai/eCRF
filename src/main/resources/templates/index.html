@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript"></script>
+</head>
+<body class="bg-light">
+<main class="container ">
+    <div th:insert="~{fragments/header :: header}"></div>
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h5 th:text="${title}" class="border-bottom pb-2 mb-2">TITLE</h5>
+    </div>
+</main>
+</body>
+</html>

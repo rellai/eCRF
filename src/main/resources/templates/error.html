@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript"></script>
+</head>
+<body class="bg-light">
+<main class="container">
+    <header th:insert="~{fragments/header :: header}"></header>
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h5 th:text="${title}" class="border-bottom pb-2 mb-2">ERROR</h5>
+        <p th:text="'Error message: ' + ${error}">Error Info</p>
+        <p th:text="'Error code: ' + ${status}">Status</p>
+        <small class="d-block text-end mt-3">
+            <a href="/">Go Home</a>
+        </small>
+
+    </div>
+</main>
+</body>
+</html>
