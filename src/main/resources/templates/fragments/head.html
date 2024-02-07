@@ -1,8 +1,10 @@
-<head>
+<head  th:fragment="head(links)">
     <meta charset="UTF-8">
-    <title th:text="${title}">TITLE</title>
+    <title th:text="${title}">Title</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css} "/>
+    <th:block th:replace="${links}" />
     <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}"></script>
+
 </head>

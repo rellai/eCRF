@@ -14,18 +14,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Bean
-    public SecurityFilterChain secondSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain firstSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/login","/webjars/**", "/styles/**", "/js/**").
+                            permitAll()
                         .anyRequest()
-                        .authenticated()
+                            .authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(fL -> fL.loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/"))
+
+
                 .logout(Customizer.withDefaults())
+
                 .rememberMe(Customizer.withDefaults());
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

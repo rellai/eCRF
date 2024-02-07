@@ -12,3 +12,6 @@ when matched then
     set username = src.username,
         password = src.password,
         authorities = src.authorities;
+
+insert into menu(MENU_ID, NAME, URL, STATUS, PARENT_ID) VALUES (1, 'Home', '/', 1, null);
+insert into menu(MENU_ID, NAME, URL, STATUS, PARENT_ID) VALUES (1, 'Users', '/users/', 1, null);
