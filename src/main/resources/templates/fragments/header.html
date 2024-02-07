@@ -1,4 +1,4 @@
-<header class="my-3 p-3 bg-body rounded shadow-sm">
+<header class="my-3">
     <ul class="nav nav-pills">
         <li class="nav-item" th:each="menu:${menu}">
             <a th:if="${menu.active}" th:href="${menu.url}" href="/" class="nav-link active" th:aria-current="${menu.name}" th:text="${menu.name}">
@@ -8,5 +8,7 @@
                 Home
             </a>
         </li>
+        <li class="nav-item ms-auto"><a href="/logout" class="nav-link">Logout</a></li>
     </ul>
+
 </header>

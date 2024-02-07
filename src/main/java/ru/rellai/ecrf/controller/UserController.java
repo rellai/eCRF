@@ -20,10 +20,10 @@ public class UserController {
 
     private final MenuService menuService;
 
-    @GetMapping("/users/")
+    @GetMapping("/users")
     public String list(Model model) {
         List<UserDto> users = userService.findAll();
-        var menu = menuService.findAllbyMenuId(1L).stream().peek(menuDto -> menuDto.setActive(menuDto.getUrl().equals("/users/")));
+        var menu = menuService.findAllbyMenuId(1L).stream().peek(menuDto -> menuDto.setActive(menuDto.getUrl().equals("/users")));
         model.addAttribute("menu", menu);
         model.addAttribute("users", users);
         model.addAttribute("title", "Users");

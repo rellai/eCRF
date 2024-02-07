@@ -5,13 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.rellai.ecrf.dto.MenuDto;
-import ru.rellai.ecrf.entity.Menu;
 import ru.rellai.ecrf.service.MenuService;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Controller
@@ -35,13 +29,4 @@ public class MainController {
         model.addAttribute("title", "Please login to eCRF");
         return "login";
     }
-
-    // Login form with error
-    @GetMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("title", "Please login to eCRF");
-        model.addAttribute("loginError", true);
-        return "login";
-    }
-    
 }
