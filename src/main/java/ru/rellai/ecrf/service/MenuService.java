@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<MenuDto> findAllbyMenuId(Long id);
+    List<MenuDto> findAllbyMenuId(Long menuId);
 
 }

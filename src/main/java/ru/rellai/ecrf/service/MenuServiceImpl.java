@@ -1,6 +1,9 @@
 package ru.rellai.ecrf.service;
 
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.rellai.ecrf.dto.MenuDto;
 import ru.rellai.ecrf.mapper.MenuMapper;
@@ -17,8 +20,9 @@ public class MenuServiceImpl implements MenuService {
     private final MenuMapper menuMapper;
 
     @Override
-    public List<MenuDto> findAllbyMenuId(Long id) {
-        return menuRepository.findAllByMenuId(id).stream().map(menuMapper::toDto).toList();
+    @Cacheable(value = "menu", key = "#menuId")
+    public List<MenuDto> findAllbyMenuId(Long menuId) {
+        return menuRepository.findAllByMenuId(menuId).stream().map(menuMapper::toDto).toList();
     }
 
 
