@@ -7,7 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Menu {
+public @interface GetMenu {
 
-    public String value() default "";
+    public long menuId() default 1;
+
 }

@@ -20,7 +20,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuMapper menuMapper;
 
     @Override
-    @Cacheable(value = "menu", key = "#menuId")
+    @Cacheable(value = "menus")
     public List<MenuDto> findAllbyMenuId(Long menuId) {
         return menuRepository.findAllByMenuId(menuId).stream().map(menuMapper::toDto).toList();
     }

@@ -1,11 +1,12 @@
 
 package ru.rellai.ecrf.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.rellai.ecrf.annotation.Menu;
+import ru.rellai.ecrf.annotation.GetMenu;
 import ru.rellai.ecrf.service.MenuService;
 
 
@@ -15,9 +16,9 @@ public class MainController {
 
     private final MenuService menuService;
 
-    @Menu("/")
+    @GetMenu
     @GetMapping("/")
-    public String list(Model model) {
+    public String list(HttpServletRequest request, Model model) {
         model.addAttribute("title", "Welcome to eCRF");
         return "index";
     }
