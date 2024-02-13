@@ -1,6 +1,7 @@
 package ru.rellai.ecrf.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Service;
 import ru.rellai.ecrf.dto.UserDto;
 import ru.rellai.ecrf.entity.User;
@@ -11,6 +12,6 @@ public interface UserMapper {
 
     UserDto toDto(User user);
 
-    User toModel(UserDto userDto);
+    User toEntity(UserDto userDto);
 
 }

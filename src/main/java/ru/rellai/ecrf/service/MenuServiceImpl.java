@@ -2,7 +2,6 @@ package ru.rellai.ecrf.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.rellai.ecrf.dto.MenuDto;
