@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.stereotype.Service;
+import ru.rellai.ecrf.auth.dto.RoleDto;
 import ru.rellai.ecrf.auth.entity.Role;
 import ru.rellai.ecrf.auth.entity.User;
 import ru.rellai.ecrf.auth.dto.UserDto;
@@ -15,18 +16,18 @@ import java.util.List;
 public interface UserMapper {
 
 
-    List<String> mapRoles(List<Role> roles);
+    List<RoleDto> mapRoles(List<Role> roles);
 
-    String mapRole(Role role);
+    RoleDto mapRole(Role role);
 
-    List<Role> mapSrings(List<String> values);
+    List<Role> mapRolesDto(List<RoleDto> roles);
+
+
+    Role mapRoleDto(RoleDto roleDto);
 
     @Mappings({
-      @Mapping(target = "name", source = "value"),
-      @Mapping(target = "id", ignore = true)
+            @Mapping(target = "password", ignore = true)
     })
-    Role mapSring(String value);
-
     UserDto toDto(User user);
 
 

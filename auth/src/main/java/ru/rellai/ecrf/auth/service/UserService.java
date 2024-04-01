@@ -1,7 +1,6 @@
 package ru.rellai.ecrf.auth.service;
 
 import ru.rellai.ecrf.auth.dto.UserDto;
-import ru.rellai.ecrf.auth.entity.User;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface UserService {
 
     UserDto save(UserDto userDto);
 
-    UserDto saveUserWithRoles(User user, List<Long> roles);
+    UserDto saveUserWithPass(UserDto userDto, long[] roles);
 
 
 }

@@ -26,13 +26,41 @@
                                    id="username" />
                         </div>
                     </div>
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-3 col-form-label" for="email">EMail</label>
+                        <div class="col-sm-9">
+                            <input type="email" th:field="*{email}" required minlength="2" maxlength="128" class="form-control"
+                                   id="email" />
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-3 col-form-label" for="username">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" th:field="*{password}" required minlength="2" maxlength="128" class="form-control"
+                                   id="password" />
+                        </div>
+                    </div>
+
 
                     <div class="form-group row mb-3">
-                        <label class="col-sm-3 col-form-label" for="roles">Roles</label>
+                        <label class="col-sm-3 col-form-label">Roles</label>
                         <div class="col-sm-9">
-                            <input type="text" th:field="*{roles}" minlength="2" maxlength="256" class="form-control"
-                                   id="roles" />
+
+
+
+
+                            <th:block th:each="role : ${roles}">
+                                <input type="checkbox" th:id="${'role' + role.id}" th:name="selectedRoles" th:value="${role.id}" th:checked="${selectedRoles.contains(role.id)}">
+                                <label th:for="${'role' + role.id}" th:text="${role.name}"></label>
+                            </th:block>
+
+
                         </div>
+
+
+
+
+
                     </div>
 
 

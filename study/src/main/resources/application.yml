@@ -16,6 +16,9 @@ logging:
     root: error
     org.springframework.security: DEBUG
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
   datasource:
     url: jdbc:h2:mem:maindb
   security:
@@ -71,6 +74,7 @@ management:
   health:
     defaults:
       enabled: true
+
 eureka:
   client:
     healthcheck:

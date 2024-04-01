@@ -26,7 +26,7 @@ public class FilesRestController {
     private final Logger logger = LoggerFactory.getLogger(FilesRestController.class);
 
 
-    @GetMapping(path = "/files/{fileName:.+}")
+    @GetMapping(path = "api/v1/files/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request)
             throws IOException {
 

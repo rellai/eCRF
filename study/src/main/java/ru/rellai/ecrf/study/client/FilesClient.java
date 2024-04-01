@@ -17,11 +17,11 @@ import ru.rellai.ecrf.study.config.FeignConfig;
         configuration = FeignConfig.class)
 public interface FilesClient {
 
-    @GetMapping(value = "/files/{fileName:.+}")
+    @GetMapping(value = "api/v1/files/{fileName:.+}")
     Response downloadFile(@PathVariable String fileName);
 
     //@RequestLine("POST /files")
-    @PostMapping(path = "/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "api/v1/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     Response uploadFile(@RequestPart(value = "file") MultipartFile file);
 
 }

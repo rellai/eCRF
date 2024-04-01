@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.rellai.ecrf.auth.annotation.AddMenu;
+import ru.rellai.ecrf.auth.dto.RoleDto;
 import ru.rellai.ecrf.auth.dto.UserDto;
-import ru.rellai.ecrf.auth.service.MenuService;
+import ru.rellai.ecrf.auth.service.RoleService;
 import ru.rellai.ecrf.auth.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -23,25 +28,13 @@ public class UserController {
 
     private final UserService userService;
 
-    private final MenuService menuService;
+    private final RoleService roleService;
+
 
     @AddMenu
     @GetMapping("/users")
     public String list(HttpServletRequest request, Model model, @Param("keyword") String keyword) {
         
-    /*    List<UserDto> users = new ArrayList<UserDto>();
-
-        if (keyword == null) {
-            userService.findAll().forEach(users::add);
-          } else {
-            userService.findAllByUsername(keyword).forEach(users::add);
-            model.addAttribute("keyword", keyword);
-          }
-       
-        
-        model.addAttribute("users", users);
-
-     */
         model.addAttribute("title", "Users");
         return "users";
     }
@@ -55,8 +48,17 @@ public class UserController {
         try {
             UserDto user = userService.findById(id);
 
+            List<Long> selectedRoles = new ArrayList<>();
+
             model.addAttribute("user", user);
+            model.addAttribute("roles", roleService.findAll());
             model.addAttribute("title", "Edit User (ID: " + id + ")");
+            if (!user.roles().isEmpty()) {
+                selectedRoles = user.roles().stream().map(RoleDto::getId).collect(Collectors.toList());
+            }
+            model.addAttribute("selectedRoles", selectedRoles);
+
+
 
             return "user";
         } catch (Exception e) {
@@ -68,9 +70,11 @@ public class UserController {
 
 
     @PostMapping("/users/save")
-    public String save(UserDto user, RedirectAttributes redirectAttributes) {
+    public String save(UserDto user,
+                       long[] selectedRoles,
+                       RedirectAttributes redirectAttributes) {
         try {
-            userService.save(user);
+            userService.saveUserWithPass(user, selectedRoles);
 
             redirectAttributes.addFlashAttribute("message", "The User has been saved successfully!");
         } catch (Exception e) {
@@ -86,7 +90,9 @@ public class UserController {
         UserDto user = new UserDto(0, null, null, null, null);
 
         model.addAttribute("user", user);
+        model.addAttribute("roles", roleService.findAll());
         model.addAttribute("title", "Create new User");
+        model.addAttribute("selectedRoles", new ArrayList<>());
 
         return "user";
     }

@@ -15,6 +15,7 @@ import ru.rellai.ecrf.auth.entity.User;
 import ru.rellai.ecrf.auth.dto.UserDto;
 import ru.rellai.ecrf.auth.mapper.UserMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -71,25 +72,45 @@ public class UserServiceImpl implements UserService {
 
         user.setUsername(userDto.username());
 
-
-        user.setRoles((userDto.roles().stream().map(s -> {
-            Role role = new Role();
-            role.setName(s);
-            return role;
-        }).toList()));
+        if (userDto.roles()!= null) {
+            user.setRoles((userDto.roles().stream().map(s -> {
+                Role role = new Role();
+                role.setName(s.getName());
+                role.setId(s.getId());
+                return role;
+            }).toList()));
+        }
 
         return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
     @CacheEvict(value = "users", allEntries = true)
-    public UserDto saveUserWithRoles(User user, List<Long> roles) {
-        Set<Role> assignedRoles = roles.stream()
-                .map(roleId -> roleRepository.findById(roleId).orElseThrow())
-                .collect(Collectors.toSet());
+    public UserDto saveUserWithPass(UserDto userDto, long[] roles) {
+
+        User user = new User();
+
+        if (userDto.id() != 0) {
+            user = userRepository.findById(userDto.id()).
+                    orElseThrow(() -> new NotFoundException("User with id %d not found".formatted(userDto.id())));
+        }
+
+        List<Role> assignedRoles = new ArrayList<Role>();
+
+        if (roles != null) {
+            for (int i = 0; i < roles.length; i++) {
+                Role role = null;
+                int finalI = i;
+                role = roleRepository.findById(roles[i]
+                ).orElseThrow(() -> new NotFoundException("Role with id %d not found".formatted(roles[finalI])));
+                if (role != null) assignedRoles.add(role);
+            }
+        }
+
+        user.setUsername(userDto.username());
         user.setRoles(assignedRoles);
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(userDto.password()));
         return userMapper.toDto(userRepository.save(user));
     }
 

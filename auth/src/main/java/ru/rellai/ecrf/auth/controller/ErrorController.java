@@ -13,8 +13,6 @@ import ru.rellai.ecrf.auth.service.MenuService;
 @RequiredArgsConstructor
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
-    private final MenuService menuService;
-
     @AddMenu
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {

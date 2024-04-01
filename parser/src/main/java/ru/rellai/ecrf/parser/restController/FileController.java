@@ -32,7 +32,7 @@ public class FileController {
     private final FileStorageService fileStorageService;
 
 
-    @PostMapping(path = "/files",
+    @PostMapping(path = "api/v1/files",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Upload study model", description = "This endpoint upload study model")
@@ -56,7 +56,7 @@ public class FileController {
 
 
 
-    @GetMapping(path = "/files/{fileName:.+}")
+    @GetMapping(path = "api/v1/files/{fileName:.+}")
     @Operation(summary = "Download file", description = "This endpoint download files from storage. " +
             "When file name is \"template_crf.xlsx\" it returns template file")
     @SecurityRequirement(name = "Authentication OAuth2")

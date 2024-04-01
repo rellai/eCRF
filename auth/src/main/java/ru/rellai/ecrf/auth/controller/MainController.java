@@ -14,8 +14,6 @@ import ru.rellai.ecrf.auth.service.MenuService;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MenuService menuService;
-
     @AddMenu
     @GetMapping("/")
     public String list(HttpServletRequest request, Model model) {
