@@ -30,7 +30,7 @@ class FileControllerTest {
       MockMultipartFile file = new MockMultipartFile("file", "dummy.csv",
                 "text/plain", "Some dataset...".getBytes());
 
-      mockMvc.perform(multipart("api/v1/files")
+      mockMvc.perform(multipart("/api/v1/files")
                                 .file(file)
                                 .with(jwt().authorities(new SimpleGrantedAuthority("SCOPE_study"))))
               .andExpect(status().isOk());
