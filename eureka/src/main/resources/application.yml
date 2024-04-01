@@ -1,0 +1,40 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+eureka:
+  environment: Development
+  datacenter: local
+  client:
+    healthcheck:
+      enabled: true
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    expected-client-renewal-interval-seconds: 30
+    eviction-interval-timer-in-ms: 60000
+    renewal-threshold-update-interval-ms: 180000
+    renewal-percent-threshold: 0.7
+
+  instance:
+    lease-renewal-interval-in-seconds: 29
+    appname: eureka
+    preferIpAddress: false
+    hostname: localhost
+    statusPageUrl: https://${eureka.instance.hostname}:${server.port}/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${server.port}/health
+  dashboard:
+    path: /
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health,info

@@ -1,0 +1,115 @@
+jwt:
+  auth:
+    converter:
+      resource-id: ${spring.application.name}
+      principal-attribute: preferred_username
+server:
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
+    path: /error
+  port: 9000
+  address: 127.0.0.1
+  servlet:
+    session:
+      tracking-modes: cookie
+  level:
+    root: error
+    org.springframework.security: DEBUG
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://127.0.0.1:9000
+        client:
+          study:
+            registration:
+              client-id: study
+              client-secret: "{noop}secret"
+              client-name: Study Client
+
+              client-authentication-methods:
+                - client_secret_basic
+                - client_secret_post
+                - client_secret_jwt
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+                - implicit
+                - password
+                - client_credentials
+              redirect-uris:
+                - http://localhost:8080/login/oauth2/code/study
+                - http://localhost:8080/authorized
+                - http://localhost:8080/swagger-ui/oauth2-redirect.html
+                - http://127.0.0.1:9000/swagger-ui/oauth2-redirect.html
+                - http://localhost:8082/swagger-ui/oauth2-redirect.html
+              scopes:
+                - openid
+                - study
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: auth
+  cloud:
+    config:
+      enabled: false
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info
+
+  health:
+    defaults:
+      enabled: true
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: false
+    lease-renewal-interval-in-seconds: 29
+
+springdoc:
+  show-oauth2-endpoints: true
+  show-login-endpoint: true
+  api-docs:
+    path: /api-docs
+    version: openapi_3_0
+  show-actuator: true
+  swagger-ui:
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+      client-secret: secret
+      client-id: study
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    defaultModelsExpandDepth: -1
+    path: /swagger

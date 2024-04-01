@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments/head :: head(~{},~{})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="bg-light">
+<main class="container ">
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h5 th:text="${title}" class="border-bottom pb-2 mb-2">TITLE</h5>
+
+        <div class="my-3">
+            <form th:action="@{/users/save}" method="post" enctype="multipart/form-data" th:object="${user}"
+                  style="max-width: 550px; margin: 0 auto">
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="p-3">
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-3 col-form-label" for="username">Username</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{username}" required minlength="2" maxlength="128" class="form-control"
+                                   id="username" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-3 col-form-label" for="roles">Roles</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{roles}" minlength="2" maxlength="256" class="form-control"
+                                   id="roles" />
+                        </div>
+                    </div>
+
+
+                    <div class="text-end">
+                        <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2 col-2" />
+                        <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm col-2" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnCancel").on("click", function () {
+                    window.location = "[[@{/users}]]";
+                });
+            });
+        </script>
+    </div>
+</main>
+</body>
+</html>

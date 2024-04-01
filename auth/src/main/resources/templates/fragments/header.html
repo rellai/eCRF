@@ -1,0 +1,19 @@
+<header class="my-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item" th:each="menu:${menu}">
+            <a th:if="${menu.active}" th:href="${menu.url}" href="/" class="nav-link active" th:aria-current="${menu.name}" th:text="${menu.name}">
+                Home
+            </a>
+            <a th:unless="${menu.active}" th:href="${menu.url}" href="/" class="nav-link" th:text="${menu.name}">
+                Home
+            </a>
+        </li>
+      <li sec:authorize="isAuthenticated()" class="nav-item ms-auto"><a th:href="@{/logout}" th:text="'Logout [' + ${#authentication.name} + ']'" class="nav-link" >Sign Out</a>
+      </li>
+
+
+
+
+    </ul>
+
+</header>
