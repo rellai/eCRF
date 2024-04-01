@@ -21,7 +21,6 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -81,17 +80,6 @@ public class SecurityConfiguration {
 
 
         return http.build();
-    }
-
-    // Логирование всех запросов
-    @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter() {
-        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-        loggingFilter.setIncludeClientInfo(true);
-        loggingFilter.setIncludeQueryString(true);
-        loggingFilter.setIncludePayload(true);
-        loggingFilter.setMaxPayloadLength(64000);
-        return loggingFilter;
     }
 
     @Bean

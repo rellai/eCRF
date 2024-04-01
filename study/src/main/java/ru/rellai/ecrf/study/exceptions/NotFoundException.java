@@ -11,4 +11,13 @@ public class NotFoundException extends RuntimeException {
         super(message);
     }
 
+    public NotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    @Override
+    public String toString() {
+        return "NotFoundException: " + getMessage();
+    }
+
 }

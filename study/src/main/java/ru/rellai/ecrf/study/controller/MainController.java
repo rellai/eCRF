@@ -11,14 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.rellai.ecrf.study.annotation.AddMenu;
-import ru.rellai.ecrf.study.service.MenuService;
 
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MenuService menuService;
+
 
     @AddMenu
     @GetMapping("/")
@@ -33,6 +32,9 @@ public class MainController {
         model.addAttribute("title", "Please login to eCRF");
         return "login";
     }
+
+
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -51,7 +53,7 @@ public class MainController {
             response.addCookie(cookie);
         }
 
-        String logoutUrl = "http://localhost:9000/logout?redirect_uri=http://localhost:8081";
+        String logoutUrl = "http://localhost:9000/logout?redirect_uri=http://localhost:8080/login";
 
         return "redirect:" + logoutUrl;
     }
