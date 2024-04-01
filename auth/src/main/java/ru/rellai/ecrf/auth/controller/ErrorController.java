@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.rellai.ecrf.auth.annotation.AddMenu;
-import ru.rellai.ecrf.auth.service.MenuService;
 
 @Controller
 @RequiredArgsConstructor

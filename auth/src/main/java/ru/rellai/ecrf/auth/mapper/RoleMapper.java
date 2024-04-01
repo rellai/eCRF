@@ -1,6 +1,11 @@
 package ru.rellai.ecrf.auth.mapper;
 
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import ru.rellai.ecrf.auth.dto.RoleDto;
 import ru.rellai.ecrf.auth.entity.Role;
 
