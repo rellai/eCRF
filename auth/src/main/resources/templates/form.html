@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments/head :: head(~{},~{})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="bg-light">
+<main class="container ">
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h5 th:text="${title}" class="border-bottom pb-2 mb-2">TITLE</h5>
+
+
+    </div>
+</main>
+</body>
+</html>

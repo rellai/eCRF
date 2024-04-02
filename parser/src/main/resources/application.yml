@@ -1,0 +1,72 @@
+server:
+  error:
+    include-message: always
+  port: 8082
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  application:
+    name: parser
+  cloud:
+    config:
+      enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://127.0.0.1:9000/oauth2/jwks
+          jws-algorithms: RS256
+          issuer-uri: http://127.0.0.1:9000/
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info
+  health:
+    defaults:
+      enabled: true
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: false
+    lease-renewal-interval-in-seconds: 29
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    version: openapi_3_0
+  show-actuator: true
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    defaultModelsExpandDepth: -1
+    path: /
+    oauth:
+      client-secret: secret
+      client-id: study
+      scopes: study openid
+      scope-separator:  " "
+      use-pkce-with-authorization-code-grant: true
+    csrf:
+      enabled: false
+    with-credentials: true
+  oAuthFlow:
+    authorizationUrl: http://127.0.0.1:9000/oauth2/authorize
+    tokenUrl: http://127.0.0.1:9000/oauth2/token
+    refreshUrl: http://127.0.0.1:9000/oauth2/refresh
+  enable-spring-security: true
+parser:
+  upload-dir: /tmp
+  template-crf-name: templates/template_crf.xlsx
+
