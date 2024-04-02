@@ -62,13 +62,13 @@ public class FileController {
     @Operation(summary = "Download file", description = "This endpoint download files from storage. " +
             "When file name is \"template_crf.xlsx\" it returns template file")
     @SecurityRequirement(name = "Authentication OAuth2")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request)
+            throws UnsupportedEncodingException {
 
         // Load file as Resource
         Resource resource = (fileName.equals("template_crf.xlsx")) ?
                 fileStorageService.getTemplate() :
                 fileStorageService.loadFileAsResource(fileName);
-
         // Try to determine file's content type
         String contentType = null;
         try {
@@ -76,7 +76,6 @@ public class FileController {
         } catch (IOException ex) {
             logger.info("Could not determine file type.");
         }
-
         // Fallback to the default content type if type could not be determined
         if (contentType == null) {
             contentType = "application/octet-stream";
@@ -84,7 +83,8 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(resource.getFilename(), "UTF-8") + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+                        URLEncoder.encode(resource.getFilename(), "UTF-8") + "\"")
                 .body(resource);
     }
 
