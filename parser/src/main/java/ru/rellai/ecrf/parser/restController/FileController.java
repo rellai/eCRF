@@ -21,6 +21,8 @@ import ru.rellai.ecrf.parser.dto.FileUploadDto;
 import ru.rellai.ecrf.parser.service.FileStorageService;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -60,7 +62,7 @@ public class FileController {
     @Operation(summary = "Download file", description = "This endpoint download files from storage. " +
             "When file name is \"template_crf.xlsx\" it returns template file")
     @SecurityRequirement(name = "Authentication OAuth2")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 
         // Load file as Resource
         Resource resource = (fileName.equals("template_crf.xlsx")) ?
@@ -82,7 +84,7 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(resource.getFilename(), "UTF-8") + "\"")
                 .body(resource);
     }
 

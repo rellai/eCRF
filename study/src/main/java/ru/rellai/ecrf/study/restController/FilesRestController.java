@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.rellai.ecrf.study.client.FilesClient;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,7 +51,7 @@ public class FilesRestController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(fileName) + "\"")
                 .body(resource);
     }
 
