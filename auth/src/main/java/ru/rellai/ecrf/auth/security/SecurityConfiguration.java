@@ -35,33 +35,6 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/webjars/**", "/styles/**", "/js/**");
     }
-/*
-    @Bean
-    @Order(1)
-    public SecurityFilterChain nullSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .securityMatcher("/actuator",
-                        "/actuator/**",
-                        "/swagger-ui/**",
-                        "/api-docs",
-                        "/api-docs/**",
-                        "/api/**",
-                        "/oauth2/**",
-                        "/**")
-                .authorizeHttpRequests((request) -> request
-
-                        .anyRequest()
-                        .permitAll()
-
-                )
-        ;
-
-        return http.build();
-    }
-
-*/
-
 
     // Настройка сервера авторизации
     @Bean
@@ -72,8 +45,6 @@ public class SecurityConfiguration {
                 .oidc(withDefaults());
         return http.formLogin(withDefaults()).build();
     }
-
-
 
     // Настройка доступа к веб приложению
     @Bean
@@ -104,12 +75,10 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
 
     // Добавляем роли в токены
     @Bean
@@ -122,9 +91,6 @@ public class SecurityConfiguration {
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList());
                 Map<String, Object> claims = new HashMap<>();
-
-
-
                 // Добавляем роли пользователя как claim
                 claims.put("roles", roles);
                 context.getClaims().claims(claimsMap -> claimsMap.putAll(claims));
@@ -136,8 +102,6 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-
-
 
 }
 

@@ -23,9 +23,7 @@ spring:
     url: jdbc:h2:mem:maindb
   sql:
     init:
-      mode: always
-      data-locations: classpath:data.sql
-      schema-locations: classpath:schema.sql
+      mode: never
   security:
     oauth2:
       authorizationserver:
